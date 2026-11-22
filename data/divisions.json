@@ -1,0 +1,66 @@
+{
+ "sample": false,
+ "totalFiles": 187361,
+ "skipped": {
+  "unmatched-notice": 18,
+  "other-kind": 209
+ },
+ "divisions": [
+  {
+   "name": "খুলনা বিভাগ",
+   "slug": "khulna",
+   "count": 17191,
+   "tree": "tree-khulna.json",
+   "search": "search-khulna.json"
+  },
+  {
+   "name": "চট্টগ্রাম বিভাগ",
+   "slug": "chattogram",
+   "count": 23378,
+   "tree": "tree-chattogram.json",
+   "search": "search-chattogram.json"
+  },
+  {
+   "name": "ঢাকা বিভাগ",
+   "slug": "dhaka",
+   "count": 59973,
+   "tree": "tree-dhaka.json",
+   "search": "search-dhaka.json"
+  },
+  {
+   "name": "বরিশাল বিভাগ",
+   "slug": "barishal",
+   "count": 16149,
+   "tree": "tree-barishal.json",
+   "search": "search-barishal.json"
+  },
+  {
+   "name": "ময়মনসিংহ বিভাগ",
+   "slug": "mymensingh",
+   "count": 10744,
+   "tree": "tree-mymensingh.json",
+   "search": "search-mymensingh.json"
+  },
+  {
+   "name": "রংপুর বিভাগ",
+   "slug": "rangpur",
+   "count": 26642,
+   "tree": "tree-rangpur.json",
+   "search": "search-rangpur.json"
+  },
+  {
+   "name": "রাজশাহী বিভাগ",
+   "slug": "rajshahi",
+   "count": 26192,
+   "tree": "tree-rajshahi.json",
+   "search": "search-rajshahi.json"
+  },
+  {
+   "name": "সিলেট বিভাগ",
+   "slug": "sylhet",
+   "count": 7092,
+   "tree": "tree-sylhet.json",
+   "search": "search-sylhet.json"
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+node_modules/
+.vercel/
+.env
+.env.*
+# Full chunk data (~250 MB, 58k files) is generated locally and hosted
+# separately (object storage) at deploy time — never committed to git.
+data/chunks/

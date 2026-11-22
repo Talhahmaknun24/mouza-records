@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>মৌজা রেকর্ড — খতিয়ান ও থানা ম্যাপ</title>
+<meta name="description" content="বিভাগ → জেলা → উপজেলা → খতিয়ানের ধরণ → মৌজা — খতিয়ান ও থানা ম্যাপ খুঁজুন ও ডাউনলোড করুন।">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <h1>মৌজা রেকর্ড</h1>
+    <p class="subtitle">বিভাগ → জেলা → উপজেলা → খতিয়ানের ধরণ → মৌজা — খতিয়ান ও থানা ম্যাপ</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="notice stats-bar" role="status" id="stats-bar">
+    তালিকা লোড হচ্ছে…
+  </div>
+
+  <!-- Global mouza search -->
+  <section class="card global-search">
+    <label for="global-search-input">মৌজা বা জে.এল. নং খুঁজুন</label>
+    <input id="global-search-input" type="search" placeholder="মৌজার নাম লিখুন…" autocomplete="off">
+    <p class="hint" id="global-search-hint">মৌজা খুঁজতে প্রথমে বিভাগ নির্বাচন করুন।</p>
+    <ul class="search-results" id="global-search-results" hidden></ul>
+  </section>
+
+  <!-- Current selection -->
+  <div class="pathbar" id="pathbar" hidden>
+    <span class="pathbar-label">নির্বাচন:</span>
+    <span id="pathbar-text"></span>
+    <button type="button" class="btn btn-ghost btn-small" id="reset-btn">✕ নতুন করে শুরু</button>
+  </div>
+
+  <!-- Main cascade -->
+  <section class="cascade" aria-label="খতিয়ান খোঁজার ধাপ">
+    <div class="card level" data-level="division">
+      <h2>বিভাগ</h2>
+      <input type="search" placeholder="বিভাগের নাম লিখুন" data-filter="division" autocomplete="off">
+      <ul class="list" id="list-division"></ul>
+    </div>
+
+    <div class="card level" data-level="district">
+      <h2>জেলা</h2>
+      <input type="search" placeholder="জেলার নাম লিখুন" data-filter="district" autocomplete="off">
+      <ul class="list" id="list-district"></ul>
+    </div>
+
+    <div class="card level" data-level="upazila">
+      <h2>উপজেলা / থানা</h2>
+      <input type="search" placeholder="উপজেলার নাম লিখুন" data-filter="upazila" autocomplete="off">
+      <ul class="list" id="list-upazila"></ul>
+    </div>
+
+    <div class="card level" data-level="type">
+      <h2>খতিয়ানের ধরণ</h2>
+      <input type="search" placeholder="খতিয়ানের ধরণ লিখুন" data-filter="type" autocomplete="off">
+      <ul class="list" id="list-type"></ul>
+    </div>
+
+    <div class="card level level-wide" data-level="mouza">
+      <h2>মৌজা (JL নম্বর)</h2>
+      <input type="search" placeholder="মৌজা বা জে.এল. নং লিখুন" data-filter="mouza" autocomplete="off">
+      <ul class="list" id="list-mouza"></ul>
+    </div>
+  </section>
+
+  <!-- Khatian list -->
+  <section class="card" id="khatian-card" aria-label="খতিয়ান তালিকা">
+    <h2>খতিয়ান তালিকা</h2>
+    <p class="hint" id="khatian-hint">খতিয়ান দেখতে মৌজা নির্বাচন করুন।</p>
+    <div id="khatian-body" hidden>
+      <input type="search" id="khatian-filter" placeholder="খতিয়ান, দাগ, মালিক বা অভিভাবক" autocomplete="off">
+      <p class="count" id="khatian-count"></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>খতিয়ান নম্বর</th>
+              <th>মালিক/দলিলধারী</th>
+              <th>দেখুন</th>
+            </tr>
+          </thead>
+          <tbody id="khatian-rows"></tbody>
+        </table>
+      </div>
+      <p class="hint" id="khatian-empty" hidden>এই খোঁজে কোনো খতিয়ান পাওয়া যায়নি।</p>
+    </div>
+  </section>
+
+  <!-- Thana map (there are NO mouza maps in this dataset) -->
+  <section class="card" id="map-card" aria-label="থানা ম্যাপ">
+    <h2>থানা ম্যাপ (PDF)</h2>
+    <p class="hint">এই ডাটাসেটে <strong>মৌজা ম্যাপ নেই</strong> — আছে থানা ম্যাপ (১৫৭টি)।
+      থানা ম্যাপ দেখতে বিভাগ ও জেলা নির্বাচন করুন।</p>
+    <div class="mini-cascade mini-cascade-2">
+      <div class="mini-level">
+        <h3>বিভাগ (ম্যাপ)</h3>
+        <input type="search" placeholder="বিভাগের নাম লিখুন" data-filter="map-division" autocomplete="off">
+        <ul class="list" id="list-map-division"></ul>
+      </div>
+      <div class="mini-level">
+        <h3>জেলা</h3>
+        <input type="search" placeholder="জেলার নাম লিখুন" data-filter="map-district" autocomplete="off">
+        <ul class="list" id="list-map-district"></ul>
+      </div>
+    </div>
+    <div id="map-body" hidden>
+      <p class="count" id="map-count"></p>
+      <ul class="map-list" id="map-rows"></ul>
+    </div>
+    <p class="hint" id="map-empty" hidden>এই জেলার কোনো থানা ম্যাপ পাওয়া যায়নি।</p>
+  </section>
+
+  <!-- About / storage honesty -->
+  <section class="card about" aria-label="এই সাইট সম্পর্কে">
+    <h2>এই সাইট সম্পর্কে</h2>
+    <ul>
+      <li>মোট <strong>১,৮৭,৩৬১টি</strong> রেকর্ড ফাইল — ৮ বিভাগ, ৬২ জেলা, ৪৮৮ উপজেলা/থানা, ৪৭,০৭১টি ভিন্ন মৌজা নাম। খতিয়ান PDF ৯৬,৫৮৯টি, খতিয়ান ছবি ৯০,৬২২টি।</li>
+      <li><strong>মৌজা ম্যাপ এই ডাটাসেটে নেই</strong> (০টি)। আছে <strong>থানা ম্যাপ PDF ১৫৭টি</strong> — উপরের “থানা ম্যাপ” অংশে দেখুন।</li>
+      <li>৪১,২৫৩টি ফাইলের নাম শুধু স্ক্যানের তারিখ-সময় (<code>scan__…</code>) — এগুলোর মৌজা/খতিয়ান নম্বর নাম থেকে জানা যায় না। সেগুলো উপজেলা + ধরণ + জে.এল. নম্বর/ফোল্ডার দিয়ে দেখানো হয় (“জে.এল.”, “📁 ফোল্ডার” বা “নাম ছাড়া খতিয়ান” গ্রুপে)।</li>
+      <li>খতিয়ানের ফাইলগুলো Google Drive-এ <strong>প্রাইভেট</strong> অবস্থায় আছে — কোনো ফাইল পাবলিক করা হয়নি।</li>
+      <li>ডাউনলোড বাটনে ক্লিক করলে সাইটের সার্ভার একটি <strong>অস্থায়ী লিংক</strong> (প্রায় ১ ঘণ্টা বৈধ) তৈরি করে দেয় — ফাইল সরাসরি Drive থেকে আসে, সাইটে কপি থাকে না।</li>
+      <li>১.৯ TB ফাইল GitHub বা এই সাইটে রাখা যায় না। ফাইলগুলো Drive-এই থাকবে। অন্য কোথাও (যেমন Backblaze B2 / Wasabi / বাহ্যিক হার্ডডিস্ক) রাখতে হলে আলাদা সিদ্ধান্ত লাগবে।</li>
+      <li>নামের বানান যেমন আছে তেমনই রাখা হয়েছে (যেমন ইশ্বরগঞ্জ/ঈশ্বরগঞ্জ) — একত্রিত করা হয়নি।</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>মৌজা রেকর্ড — খতিয়ান ও থানা ম্যাপের তালিকা। তথ্যের নির্ভুলতার দায় ফাইলের উৎসের।</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
