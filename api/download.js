@@ -75,6 +75,10 @@ module.exports = async (req, res) => {
     return json(res, 502, { error: "ডাউনলোড সার্ভার Google-এর সাথে যোগাযোগ করতে পারেনি।" });
   }
   if (!tokenRes.ok) {
+    try {
+      const errBody = await tokenRes.text();
+      console.error("[download] token exchange failed:", tokenRes.status, errBody.slice(0, 300));
+    } catch (_) {}
     return json(res, 502, { error: "ডাউনলোড সার্ভার লগইন করতে পারেনি।" });
   }
   const tokenData = await tokenRes.json();

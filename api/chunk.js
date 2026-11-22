@@ -56,7 +56,13 @@ async function getAccessToken(clientId, clientSecret, refreshToken) {
       grant_type: "refresh_token",
     }),
   });
-  if (!tokenRes.ok) return null;
+  if (!tokenRes.ok) {
+    try {
+      const errBody = await tokenRes.text();
+      console.error("[chunk] token exchange failed:", tokenRes.status, errBody.slice(0, 300));
+    } catch (_) {}
+    return null;
+  }
   const tokenData = await tokenRes.json();
   if (!tokenData.access_token) return null;
   // expires_in ~৩৬০০ সেকেন্ড; ৬০ সেকেন্ড আগেই মেয়াদোত্তীর্ণ ধরা হয়।
